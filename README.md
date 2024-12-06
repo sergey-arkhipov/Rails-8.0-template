@@ -1,24 +1,11 @@
-# README
+# Template for create new project on Rails 8.0
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- ruby 3.3.5
 
-Things you may want to cover:
+- postgres as database
+- tailwind
+- bun
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+rails new Rails-8.0-template -d postgresql --devcontainer -j bun -c tailwind
+```
