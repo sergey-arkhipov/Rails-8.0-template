@@ -1,0 +1,36 @@
+<div class="navbar bg-base-300">
+  <div class="flex">
+    <a class="btn btn-ghost text-xl">Ale2Da</a>
+  </div>
+  <div class="navbar-start lg:flex gap-2">
+    <ul class="menu menu-horizontal bg-base-200 rounded-md md:w-auto py-1">
+      <%= render(MenuItemComponent.new(title: "Item 1", image: "home.svg")) %>
+      <%= render(MenuItemComponent.new(title: "Item 2", image: "info.svg")) %>
+      <%= render(MenuItemComponent.new(title: "Item 3", image: "bar.svg")) %>
+    </ul>
+  </div>
+  <div class="flex gap-2 navbar-end">
+    <div class="form-control">
+      <input type="text" autocomplete=off placeholder="Search" class="input input-bordered w-24 md:w-auto">
+    </div>
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <%= image_tag "avatar-default.svg" %>
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li>
+          <a class="justify-between">
+            Profile
+            <span class="badge">New</span>
+          </a>
+        </li>
+        <li><a>Settings</a></li>
+        <li><a>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
