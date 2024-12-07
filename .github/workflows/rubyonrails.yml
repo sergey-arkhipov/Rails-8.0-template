@@ -34,9 +34,7 @@ jobs:
         with:
           ruby-version: 3.3
       - name: Install bun
-        run: curl -fsSL https://bun.sh/install | bash
-      - name: Test bun installed
-        run: source /home/runner/.bashrc && bun -v
+        uses: oven-sh/setup-bun@v2
       - name: Install gems
         run: bundle install
       # Add or replace database setup steps here
@@ -55,10 +53,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
       - name: Install gems
         run: bundle install
-      - name: Install bun
-        run: curl -fsSL https://bun.sh/install | bash # for macOS, Linux, and WSL
       - name: Generate binstubs
         run: bundle binstubs bundler-audit brakeman rubocop
       # Add or replace any other lints here
