@@ -2,11 +2,19 @@
   <div class="flex">
     <a class="btn btn-ghost text-xl">Ale2Da</a>
   </div>
-  <div class="navbar-start lg:flex gap-2">
-    <ul class="menu menu-horizontal bg-base-200 rounded-md md:w-auto py-1">
-      <%= render(MenuItemComponent.new(title: "Item 1", image: "home.svg")) %>
-      <%= render(MenuItemComponent.new(title: "Item 2", image: "info.svg")) %>
-      <%= render(MenuItemComponent.new(title: "Item 3", image: "bar.svg")) %>
+  <div class="navbar-center">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <%= image_tag 'burger.svg', class: "h-5 w-5" %>
+      </div>
+      <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <%= render "layouts/menu_items" %>
+      </ul>
+    </div>
+  </div>
+  <div class="navbar-start hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      <%= render "layouts/menu_items" %>
     </ul>
   </div>
   <div class="flex gap-2 navbar-end">
