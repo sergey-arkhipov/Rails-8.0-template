@@ -36,7 +36,9 @@ jobs:
       - name: Install gems
         run: bundle install
       - name: Install bun
-        run: curl -fsSL https://bun.sh/install | bash && source /home/runner/.bashrc
+        run: curl -fsSL https://bun.sh/install | bash
+      - name: Test bun installed
+        run: source /home/runner/.bashrc && bun -v
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
