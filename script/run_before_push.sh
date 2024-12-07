@@ -38,7 +38,7 @@ printg '\U0001F4A5 -->  Run RSpec tests'
 bundle exec rspec
 check_status
 printg '\U0001F4A5 -->  Run cucumber'
-# bundle exec cucumber  -S --fail-fast --tags 'not @failed' -f summary
+bundle exec cucumber  -S --fail-fast -f summary
 check_status
 printg '\U0001F4A5 -->  Run Reek'
 bundle exec reek

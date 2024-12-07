@@ -5,6 +5,8 @@ require_relative "../config/environment"
 require "view_component/test_helpers"
 require "view_component/system_test_helpers"
 require "capybara/rspec"
+require "support/database_cleaner"
+require "support/capybara"
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 # Uncomment the line below in case you have `--require rails_helper` in the `.rspec` file

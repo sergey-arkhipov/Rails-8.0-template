@@ -16,6 +16,7 @@ AllCops:
     - "config/**/*"
     - "node_modules/**/*"
     - "vendor/**/*"
+    - "lib/tasks/cucumber.rake"
 Style/Documentation: # Checks for missing top-level documentation of classes and modules
   Enabled: false
 Rails/FilePath: # This cop is used to identify usages of file path joining process
