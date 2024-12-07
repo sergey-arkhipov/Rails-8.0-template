@@ -5,6 +5,14 @@ module.exports = {
     "./app/assets/stylesheets/**/*.css",
     "./app/javascript/**/*.js",
   ],
+  theme: {
+    extend: {
+      fontSize: {
+        "3xl": "1.875rem", // You can adjust this value as needed
+        // Add other custom sizes if necessary
+      },
+    },
+  },
   // add daisyUI plugin
   plugins: [require("daisyui")],
 
@@ -19,4 +27,4 @@ module.exports = {
     logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
     themeRoot: ":root", // The element that receives theme color CSS variables
   },
-};
+}

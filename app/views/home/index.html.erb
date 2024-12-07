@@ -1,2 +1,55 @@
 <div class="h-screen bg-cover bg-no-repeat bg-[url('forestbridge.jpg')]">
+  <div class="place-content-center h-full" data-controller="timer">
+    <div class="shadow-xl bg-gradient-to-r from-purple-500 to-blue-500 p-5 rounded-lg animate-bounce">
+      <p class="text-3xl font-mono text-white text-center text-shadow animate-text-color">Новый Год через ...</p>
+    </div>
+    <style>
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                     0 0 25px rgba(255, 255, 255, 0.7),
+                     0 0 5px rgba(0, 0, 255, 0.7);
+      }
+      .animate-text-color {
+          animation: colorChange 5s infinite alternate;
+        }
+
+        @keyframes colorChange {
+          0% {
+      color: #ff0000; /* Start with red */
+          }
+          50% {
+      color: #00ff00; /* Change to green */
+          }
+          100% {
+      color: #0000ff; /* Change to blue */
+          }
+        }
+    </style>
+    <div class="grid auto-cols-max grid-flow-col gap-5 text-center place-content-center">
+      <div class="bg-neutral rounded-box text-neutral-content flex flex-col p-2">
+        <span class="countdown font-mono text-5xl" data-timer-target='days'>
+          <span style="--value:15;"></span>
+        </span>
+        days
+      </div>
+      <div class="bg-neutral rounded-box text-neutral-content flex flex-col p-2">
+        <span class="countdown font-mono text-5xl" data-timer-target='hours'>
+          <span style="--value:10;"></span>
+        </span>
+        hours
+      </div>
+      <div class="bg-neutral rounded-box text-neutral-content flex flex-col p-2">
+        <span class="countdown font-mono text-5xl" data-timer-target='min'>
+          <span style="--value:24;"></span>
+        </span>
+        min
+      </div>
+      <div class="bg-neutral rounded-box text-neutral-content flex flex-col p-2">
+        <span class="countdown font-mono text-5xl" data-timer-target='sec'>
+          <span style="--value:00;"></span>
+        </span>
+        sec
+      </div>
+    </div>
+  </div>
 </div>
