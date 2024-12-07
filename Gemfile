@@ -54,7 +54,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "bundler-audit"
+  gem "htmlbeautifier"
   gem "rails-controller-testing"
+  gem "reek"
   gem "rubocop"
   gem "rubocop-capybara", require: false
   gem "rubocop-factory_bot", require: false

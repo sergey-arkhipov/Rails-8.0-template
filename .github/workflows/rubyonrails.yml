@@ -55,6 +55,12 @@ jobs:
           ruby-version: 3.3
       - name: Install bun
         uses: oven-sh/setup-bun@v2
+      - name: Install prettier
+        run: bun add --global prettier
+      - name: Prettier. Check JS
+        run: bun x prettier --check app/**/*.js
+      - name: Prettier. Check CSS
+        run: bun x prettier --check app/**/*.css
       - name: Install gems
         run: bundle install
       - name: Generate binstubs
@@ -62,9 +68,13 @@ jobs:
       # Add or replace any other lints here
       - name: Security audit dependencies
         run: bin/bundler-audit --update
-      - name: Security audit application code
+      - name: Find smell code
+        run: bundle exec reek --failure-exit-code 1 .
+      - name: security audit application code
         run: bin/brakeman -q -w2
       - name: Lint Ruby files
         run: bin/rubocop --parallel
       - name: Lint ERB files
         run: bundle exec erb_lint **/*.erb
+      - name: HTML beautifier
+        run: bundle exec htmlbeautifier app/views/**/*.erb -l
