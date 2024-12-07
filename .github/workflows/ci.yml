@@ -93,6 +93,13 @@ jobs:
         with:
           bun-version: 1.1.38
 
+      - name: Prepare assets
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          # REDIS_URL: redis://localhost:6379/0
+        run: bin/rails assets:precompile
+
       - name: Prepare tests. Prepare database
         env:
           RAILS_ENV: test
