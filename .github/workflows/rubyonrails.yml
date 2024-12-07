@@ -33,12 +33,12 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3
-      - name: Install gems
-        run: bundle install
       - name: Install bun
         run: curl -fsSL https://bun.sh/install | bash
       - name: Test bun installed
         run: source /home/runner/.bashrc && bun -v
+      - name: Install gems
+        run: bundle install
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
