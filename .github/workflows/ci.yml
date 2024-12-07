@@ -93,12 +93,14 @@ jobs:
         with:
           bun-version: 1.1.38
 
-      - name: Run tests
+      - name: Prepare tests. Prepare database
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        run: bin/rails db:test:prepare
+      - name: Run rspec tests
+        run: bundle exec rspec -f d
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
