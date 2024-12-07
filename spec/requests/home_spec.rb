@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 require "rails_helper"
 
-RSpec.describe "Homes" do
+RSpec.describe "Home" do
   describe "GET /index" do
     it "returns http success and render template index" do
       get "/home/index"
