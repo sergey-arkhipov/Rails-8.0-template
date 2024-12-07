@@ -1,10 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "Homes", type: :request do
+RSpec.describe "Home" do
   describe "GET /index" do
-    it "returns http success" do
+    it "returns http success and render template index" do
       get "/home/index"
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:success).and render_template(:index)
     end
   end
 end

@@ -1,5 +1,5 @@
 # Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+# inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 require:
   - rubocop-rspec
   - rubocop-rails
@@ -12,6 +12,7 @@ AllCops:
   Exclude:
     - "bin/**/*"
     - "db/schema.rb"
+    - "db/queue_schema.rb"
     - "config/**/*"
     - "node_modules/**/*"
     - "vendor/**/*"
@@ -26,6 +27,7 @@ Style/FrozenStringLiteralComment: # Checks for # frozen_string_literal: comment
 RSpec/ExampleLength: # Checks for long examples.
   Exclude:
     - "spec/features/*"
+    - "db/schema.rb"
 RSpec/ContextWording:
   AllowedPatterns:
     - когда
@@ -37,6 +39,11 @@ Metrics/MethodLength:
     - "db/migrate/**/*"
 Naming/RescuedExceptionsVariableName:
   PreferredName: "e"
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
 Lint/MissingSuper:
   Exclude:
     - "app/components/**/*"

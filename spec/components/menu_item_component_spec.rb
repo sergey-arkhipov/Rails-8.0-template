@@ -1,15 +1,17 @@
-# frozen_string_literal: true
-
 require "rails_helper"
 
 RSpec.describe MenuItemComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before { render_inline(described_class.new(title: "Это пункт меню", image: "bar.svg", path: "/home/index.html")) }
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  it "renders title menu item" do
+    expect(page).to have_text "Это пункт меню"
+  end
+
+  it "renders path for menu item" do
+    expect(page).to have_link(href: "/home/index.html")
+  end
+
+  it "renders image for menu item" do
+    expect(page).to have_css("img[src*=bar-]")
+  end
 end
