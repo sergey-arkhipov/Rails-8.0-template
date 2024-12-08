@@ -41,6 +41,8 @@ gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+gem "amazing_print"
+gem "rails_semantic_logger"
 gem "view_component"
 
 group :development, :test do

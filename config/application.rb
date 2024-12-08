@@ -24,5 +24,11 @@ module Rails80Template
     #
     config.time_zone = "Europe/Moscow"
     # config.eager_load_paths << Rails.root.join("extras")
+    if ENV["RAILS_LOG_TO_STDOUT"].present?
+      $stdout.sync = true
+      config.rails_semantic_logger.add_file_appender = false
+      config.semantic_logger.add_appender(io: $stdout, formatter: config.rails_semantic_logger.format)
+    end
+    config.log_level = ENV["LOG_LEVEL"].downcase.strip.to_sym if ENV["LOG_LEVEL"].present?
   end
 end
