@@ -1,27 +1,8 @@
 name: CI
 
-on:
-  pull_request:
-  push:
-    branches: [master]
+on: [push, pull_request]
 
 jobs:
-  scan_ruby:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
-
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -30,7 +11,7 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3
+          ruby-version: .ruby-version
       - name: Install bun
         uses: oven-sh/setup-bun@v2
       - name: Install prettier
@@ -43,19 +24,18 @@ jobs:
         run: bundle install
       - name: Generate binstubs
         run: bundle binstubs bundler-audit brakeman rubocop
-      # Add or replace any other lints here
       - name: Security audit dependencies
         run: bin/bundler-audit --update
-      - name: Find smell code
+      - name: Check smell code
         run: bundle exec reek --failure-exit-code 1 .
-      - name: security audit application code
-        run: bin/brakeman -q -w2
       - name: Lint Ruby files
         run: bin/rubocop --parallel
       - name: Lint ERB files
         run: bundle exec erb_lint **/*.erb
       - name: HTML beautifier
         run: bundle exec htmlbeautifier app/views/**/*.erb -l
+      - name: Security audit application code
+        run: bin/brakeman -q -w2
 
   test:
     runs-on: ubuntu-latest
@@ -75,10 +55,14 @@ jobs:
       #   ports:
       #     - 6379:6379
       #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432
+      # REDIS_URL: redis://localhost:6379/0
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips postgresql-client
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -88,35 +72,15 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
+      # Install bun
       - uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: 1.1.38
-
-      - name: Prepare assets
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
+      - name: Prepare tests. Prepare assets
         run: bin/rails assets:precompile
-
       - name: Prepare tests. Prepare database
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare
       - name: Run rspec tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
         run: bundle exec rspec -f d
       - name: Run cucumber tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
         run: bundle exec cucumber
 
       - name: Keep screenshots from failed system tests
