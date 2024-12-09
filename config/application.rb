@@ -24,11 +24,25 @@ module Rails80Template
     #
     config.time_zone = "Europe/Moscow"
     # config.eager_load_paths << Rails.root.join("extras")
-    if ENV["RAILS_LOG_TO_STDOUT"].present?
-      $stdout.sync = true
-      config.rails_semantic_logger.add_file_appender = false
-      config.semantic_logger.add_appender(io: $stdout, formatter: config.rails_semantic_logger.format)
-    end
+    # if ENV["RAILS_LOG_TO_STDOUT"].present?
+    #   $stdout.sync = true
+    #   config.rails_semantic_logger.add_file_appender = false
+    #   config.semantic_logger.add_appender(
+    #     io: $stdout,
+    #     formatter: config.rails_semantic_logger.format
+    #     # Filter out log entries healthcheck
+    #     # filter: /Rails::HealthController/
+    #   )
+    # end
     config.log_level = ENV["LOG_LEVEL"].downcase.strip.to_sym if ENV["LOG_LEVEL"].present?
+    config.rails_semantic_logger.started = true
+    config.rails_semantic_logger.processing = true
+    config.rails_semantic_logger.rendered   = true
+    config.rails_semantic_logger.console_logger = false
+    config.log_tags = {
+      request_id: :request_id,
+      ip: :remote_ip,
+      user: ->(request) { request.cookie_jar["login"] }
+    }
   end
 end
