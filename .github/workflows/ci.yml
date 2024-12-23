@@ -39,7 +39,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres
@@ -76,10 +75,13 @@ jobs:
       - uses: oven-sh/setup-bun@v1
       - name: Prepare tests. Prepare assets
         run: bin/rails assets:precompile
+
       - name: Prepare tests. Prepare database
         run: bin/rails db:test:prepare
+
       - name: Run rspec tests
         run: bundle exec rspec -f d
+
       - name: Run cucumber tests
         run: bundle exec cucumber
 
@@ -105,5 +107,5 @@ jobs:
       - name: Check health
         run: |
           docker ps
-          sleep 10
+          sleep 10 
           curl -f http://localhost:3500/up || exit 1
