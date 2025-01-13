@@ -1,6 +1,6 @@
 # Template for create new project on Rails 8.0
 
-- ruby 3.3.5
+- ruby 3.4.1
 - postgres as database
 - tailwind
 - bun
