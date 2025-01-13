@@ -8,32 +8,37 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Install Ruby and gems
+
+      - name: Prepare env. Ruby, Bun, Gems
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-      - name: Install bun
-        uses: oven-sh/setup-bun@v2
-      - name: Install prettier
-        run: bun add --global prettier
-      - name: Prettier. Check JS
-        run: bun x prettier --check app/**/*.js
-      - name: Prettier. Check CSS
-        run: bun x prettier --check app/**/*.css
-      - name: Install gems
-        run: bundle install
-      - name: Generate binstubs
-        run: bundle binstubs bundler-audit brakeman rubocop
+      - uses: oven-sh/setup-bun@v2
+      - run: |
+          bundle install
+          bundle binstubs bundler-audit brakeman rubocop
+
+      - name: Prettier. Check JS and CSS
+        run: |
+          bun add --global prettier
+          bun x prettier --check app/**/*.js
+          bun x prettier --check app/**/*.css
+
       - name: Security audit dependencies
         run: bin/bundler-audit --update
+
       - name: Check smell code
         run: bundle exec reek --failure-exit-code 1 .
+
       - name: Lint Ruby files
         run: bin/rubocop --parallel
+
       - name: Lint ERB files
         run: bundle exec erb_lint **/*.erb
+
       - name: HTML beautifier
         run: bundle exec htmlbeautifier app/views/**/*.erb -l
+
       - name: Security audit application code
         run: bin/brakeman -q -w2
 
@@ -48,16 +53,9 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-
-      # redis:
-      #   image: redis
-      #   ports:
-      #     - 6379:6379
-      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:postgres@localhost:5432
-      # REDIS_URL: redis://localhost:6379/0
 
     steps:
       - name: Install packages
@@ -73,11 +71,11 @@ jobs:
           bundler-cache: true
       # Install bun
       - uses: oven-sh/setup-bun@v1
-      - name: Prepare tests. Prepare assets
-        run: bin/rails assets:precompile
 
-      - name: Prepare tests. Prepare database
-        run: bin/rails db:test:prepare
+      - name: Prepare assets and database for tests
+        run: |
+          bin/rails assets:precompile
+          bin/rails db:test:prepare
 
       - name: Run rspec tests
         run: bundle exec rspec -f d
