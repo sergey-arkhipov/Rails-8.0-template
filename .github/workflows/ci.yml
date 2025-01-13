@@ -45,7 +45,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      db:
         image: postgres
         env:
           POSTGRES_USER: postgres
@@ -55,7 +55,7 @@ jobs:
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
     env:
       RAILS_ENV: test
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432
+      DATABASE_URL: postgres://postgres:postgres@db:5432
 
     steps:
       - name: Install packages
