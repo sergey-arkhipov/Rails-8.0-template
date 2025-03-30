@@ -31,7 +31,7 @@ module DownloadHelpers
   # Сохраняем состояние папки загрузок для проверок.
   # Возможно создание файлов в период между разными проверками со считыванием содержимого папки
   def downloaded?(expected_file)
-    current_download = downloads.map { File.basename(_1) }
+    current_download = downloads.map { File.basename(it) }
     if expected_file
       current_download.one? expected_file
     else
