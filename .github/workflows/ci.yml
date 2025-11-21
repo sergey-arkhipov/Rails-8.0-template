@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Prepare env. Ruby, Bun, Gems
         uses: ruby/setup-ruby@v1
@@ -67,7 +67,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client
 
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Create compose and start Application
         run: |
