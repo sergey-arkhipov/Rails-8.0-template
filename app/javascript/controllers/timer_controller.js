@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["days", "hours", "min", "sec"]
   refreshInterval = 1000 // Set to 10 seconds (10000 milliseconds)
-  newYearDate = "2025-03-01T00:00:00"
+  newYearDate = "2026-01-01T00:00:00"
 
   connect() {
     this.setRemainingTime()
