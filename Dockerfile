@@ -8,7 +8,7 @@
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.4.1
+ARG RUBY_VERSION=4.0.0
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -16,7 +16,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+  apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client libyaml-dev && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -30,13 +30,12 @@ FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config unzip && \
+  apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config unzip libyaml-dev && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 ENV BUN_INSTALL=/usr/local/bun
 ENV PATH=/usr/local/bun/bin:$PATH
-ARG BUN_VERSION=1.2.2
-RUN curl -fsSL https://bun.sh/install | bash -s -- "bun-v${BUN_VERSION}"
+RUN curl -fsSL https://bun.sh/install | bash -s 
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
