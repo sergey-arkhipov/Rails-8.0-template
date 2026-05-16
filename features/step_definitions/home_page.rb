@@ -9,7 +9,7 @@ end
 end
 
 Тогда(/^логотип с надписью "([^"]*)"$/i) do |logo_name|
-  expect(page).to have_content(logo_name)
+  expect(page).to have_text(logo_name)
 end
 
 Когда(/^пользователь нажимает на аватар$/) do
