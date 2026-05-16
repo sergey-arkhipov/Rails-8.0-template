@@ -2,17 +2,17 @@ services:
   db:
     image: postgres:alpine
     environment:
-      - POSTGRES_USER=${DATABASE_USER:-postgres}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-postgres}
-      - POSTGRES_DB=${DATABASE_NAME:-database}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=database
     restart: always
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d database"]
       interval: 5s
       timeout: 5s
-      retries: 3
+      retries: 5
   app:
     build: .
     environment:
