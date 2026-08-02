@@ -38,7 +38,10 @@ module Rails80Template
     config.rails_semantic_logger.started = true
     config.rails_semantic_logger.processing = true
     config.rails_semantic_logger.rendered   = true
-    config.rails_semantic_logger.console_logger = false
+    config.rails_semantic_logger.appenders do |appenders|
+      appenders.add(file_name: "log/#{Rails.env}.log", formatter: :color)
+      appenders.add_server
+    end
     config.log_tags = {
       request_id: :request_id,
       ip: :remote_ip,
