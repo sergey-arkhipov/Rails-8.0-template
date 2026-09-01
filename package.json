@@ -8,10 +8,10 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.23",
-    "@tailwindcss/cli": "^4.3.0",
-    "autoprefixer": "^10.5.0",
-    "daisyui": "^5.5.23",
-    "postcss": "^8.5.15",
-    "tailwindcss": "^4.3.0"
+    "@tailwindcss/cli": "^4.3.3",
+    "autoprefixer": "^10.5.4",
+    "daisyui": "^5.7.25",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^4.3.3"
   }
 }
